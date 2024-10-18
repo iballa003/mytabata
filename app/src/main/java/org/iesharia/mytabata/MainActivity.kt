@@ -5,7 +5,9 @@ import android.os.CountDownTimer
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -16,8 +18,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import org.iesharia.mytabata.ui.theme.MytabataTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,19 +44,81 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Counter(modifier: Modifier = Modifier) {
+    var setValue = 0
     var theCounter by remember { mutableStateOf(0L) }
     var miConterDown by remember{ mutableStateOf(CounterDown(99, {newvalue -> theCounter = newvalue}))}
 
-    Column {
-        Text(
-            text = theCounter.toString(),
-            modifier = modifier
-        )
-        Button(onClick = {
-            miConterDown.toggle()
-        }) {
+//    Column {
+//        Text(
+//            text = theCounter.toString(),
+//            modifier = modifier
+//        )
+//        Button(onClick = {
+//            miConterDown.toggle()
+//        }) {
+//            Text(
+//                text = "Pulsar"
+//            )
+//        }
+//    }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(){
             Text(
-                text = "Pulsar"
+                text = "-",
+                modifier = Modifier.padding(20.dp),
+                fontSize = 20.sp
+            )
+            Text(
+                text = "Set",
+                modifier = Modifier.padding(20.dp),
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            )
+            Text(
+                text = "+",
+                modifier = Modifier.padding(20.dp),
+                fontSize = 20.sp
+            )
+        }
+
+        Row(){
+            Text(
+                text = "-",
+                modifier = Modifier.padding(20.dp),
+                fontSize = 20.sp
+            )
+            Text(
+                text = "Work",
+                modifier = Modifier.padding(20.dp),
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            )
+            Text(
+                text = "+",
+                modifier = Modifier.padding(20.dp),
+                fontSize = 20.sp
+            )
+        }
+        Row(){
+            Text(
+                text = "-",
+                modifier = Modifier.padding(20.dp),
+                fontSize = 20.sp
+            )
+            Text(
+                text = "Rest",
+                modifier = Modifier.padding(20.dp),
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            )
+            Text(
+                text = "+",
+                modifier = Modifier.padding(20.dp),
+                fontSize = 20.sp
             )
         }
     }
