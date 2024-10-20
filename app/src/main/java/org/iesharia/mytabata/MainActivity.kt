@@ -1,9 +1,9 @@
 package org.iesharia.mytabata
 
 import android.R
-import android.R.color.black
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MytabataTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Counter(
+                    CounterInit(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -49,9 +49,49 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 @Composable
-fun Counter(modifier: Modifier = Modifier) {
+fun CounterInit(modifier: Modifier = Modifier, setsValue : Int = 0, workValue : Int = 9, restValue: Int = 0){
+    var theCounter by remember { mutableStateOf(0L) }
+    var miConterDown by remember{ mutableStateOf(CounterDown(workValue, {newvalue -> theCounter = newvalue}))}
+    var buttonText by remember{ mutableStateOf("▶")}
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Trabajo",
+            modifier = Modifier.padding(20.dp),
+            fontWeight = FontWeight.Bold,
+            fontSize = 50.sp
+        )
+        Spacer(modifier.padding(10.dp))
+        Text(
+            text = "0 sets",
+            fontSize = 28.sp
+        )
+        Text(
+            text = "00:0"+theCounter.toString(),
+            fontWeight = FontWeight.Bold,
+            fontSize = 50.sp
+        )
+        Spacer(modifier.padding(20.dp))
+        Button(onClick = {
+            buttonText = "❚❚"
+            miConterDown.toggle()
+        }) {
+            Text(
+                //text = "▶",
+                text = buttonText,
+                fontSize = 28.sp
+                )
+
+        }
+
+    }
+}
+@Composable
+fun CounterSetting(modifier: Modifier = Modifier) {
     var setsValue by remember { mutableStateOf(0) }
     var workValue by remember { mutableStateOf(0) }
     var restValue by remember { mutableStateOf(0) }
@@ -71,12 +111,18 @@ fun Counter(modifier: Modifier = Modifier) {
 //            )
 //        }
 //    }
-    Text(text = "Empieza.")
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = "Inicio",
+            fontWeight = FontWeight.Bold,
+            fontSize = 28.sp
+        )
+        Spacer(modifier.padding(20.dp))
         Text(
             text = "Sets",
             modifier = Modifier.padding(20.dp),
@@ -206,7 +252,7 @@ fun Counter(modifier: Modifier = Modifier) {
             )
         }
         Spacer(modifier = Modifier.size(60.dp))
-        Button(onClick = {}, shape = RectangleShape) {
+        Button(onClick = { Log.i("DAM2","Click")}, shape = RectangleShape) {
             Text(text = "Empezar actividad",
                 fontSize = 30.sp)
             modifier.padding(20.dp)
@@ -219,6 +265,6 @@ fun Counter(modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     MytabataTheme {
-        Counter()
+        CounterSetting()
     }
 }
