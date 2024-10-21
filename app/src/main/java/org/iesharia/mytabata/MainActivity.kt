@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MytabataTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    CounterInit(
+                    CounterSetting(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -54,30 +54,37 @@ fun CounterInit(modifier: Modifier = Modifier, setsValue : Int = 0, workValue : 
     var theCounter by remember { mutableStateOf(0L) }
     var miConterDown by remember{ mutableStateOf(CounterDown(workValue, {newvalue -> theCounter = newvalue}))}
     var buttonText by remember{ mutableStateOf("▶")}
+    var pause : Boolean = false
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Trabajo",
+            text = "Work",
             modifier = Modifier.padding(20.dp),
             fontWeight = FontWeight.Bold,
             fontSize = 50.sp
         )
         Spacer(modifier.padding(10.dp))
         Text(
-            text = "0 sets",
+            text = setsValue.toString()+ " sets",
             fontSize = 28.sp
         )
         Text(
-            text = "00:0"+theCounter.toString(),
+            text = theCounter.toString(),
             fontWeight = FontWeight.Bold,
             fontSize = 50.sp
         )
         Spacer(modifier.padding(20.dp))
         Button(onClick = {
-            buttonText = "❚❚"
+            if (pause == false){
+                buttonText = "▶"
+                pause = true
+            }else{
+                buttonText = "❚❚"
+                pause = false
+            }
             miConterDown.toggle()
         }) {
             Text(

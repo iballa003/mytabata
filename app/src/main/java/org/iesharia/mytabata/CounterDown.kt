@@ -15,7 +15,7 @@ class CounterDown(var segundos: Int, var loquehacealhacertick: (Long) -> Unit) {
 
         override fun onFinish() {
             counterState = false
-            Log.i("dam2", "mensajito")
+            Log.i("dam2", "click")
         }
     }
 
